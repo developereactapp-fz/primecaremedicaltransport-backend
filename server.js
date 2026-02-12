@@ -11,34 +11,28 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/contact", contactRoutes);
 app.use("/api/booking", bookingRoutes);
 
-// MongoDB connection (important for serverless)
-let cached = global.mongoose;
+/* --------------------------
+   Mongo Connection
+--------------------------- */
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+mongoose.connect(process.env.MONGO_URI, {
+  dbName: process.env.DB_NAME,
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.log(err));
+
+/* --------------------------
+   Local Only Listen
+--------------------------- */
+
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () =>
+    console.log(`Server running on port ${PORT}`)
+  );
 }
-
-async function connectDB() {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGO_URI, {
-      dbName: process.env.DB_NAME,
-    }).then((mongoose) => mongoose);
-  }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
-
-// Connect DB before every request
-app.use(async (req, res, next) => {
-  await connectDB();
-  next();
-});
 
 module.exports = app;
