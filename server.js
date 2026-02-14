@@ -40,9 +40,7 @@ app.use("/api/booking", bookingRoutes);
    MONGODB CONNECTION
 --------------------------- */
 
-mongoose.connect(process.env.MONGO_URI, {
-  dbName: process.env.DB_NAME,
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.error(err));
 
