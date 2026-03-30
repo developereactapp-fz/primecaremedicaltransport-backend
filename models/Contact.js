@@ -5,7 +5,12 @@ const ContactSchema = new mongoose.Schema(
     name: String,
     email: String,
     message: String,
-    submittedAt: String, // formatted
+
+    // ✅ store as Date (UTC internally)
+    submittedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );
