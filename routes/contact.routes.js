@@ -35,14 +35,15 @@ router.post("/", async (req, res) => {
     
     const formattedTime = nowUser.format("DD MMM YYYY, hh:mm A z");
 
-
-
-    /* =========================
+console.log("sender admin mail to", process.env.ADMIN_EMAIL)
+console.log("User Timezone", userTimezone)
+    
+/* =========================
        1️⃣ ADMIN EMAIL (YOU RECEIVE)
     ========================= */
     await transporter.sendMail({
       from: `"Prime Care Website" <${process.env.EMAIL_USER}>`, // ✅ ALWAYS business mail
-      to: process.env.EMAIL_USER, // ✅ YOU receive here
+      to: "dispatch@primecaretransportations.com", // ✅ YOU receive here
       replyTo: email, // ✅ reply goes to user
       subject: "New Contact Form Submission",
       html: `
