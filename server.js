@@ -15,8 +15,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://primecaremedicaltransport-frontend.vercel.app",
   "https://primecaretransportations.com",
-  "https://www.primecaretransportations.com",
-  "https://developereactapp-fz-primecaremedica-lemon.vercel.app"
+  "https://www.primecaretransportations.com"
 ];
 
 app.use(
