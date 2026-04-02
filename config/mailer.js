@@ -1,13 +1,13 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: Number(process.env.EMAIL_PORT),
-  secure: false, // true only for port 465
+  port: process.env.EMAIL_PORT,
+  secure: false, // IMPORTANT for 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
 
-module.exports = transporter;
+export default transporter;
